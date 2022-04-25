@@ -14,7 +14,7 @@ output:
       ratio: "16:9"
 ---
 
-background-image: url("../_imgs/logos.png")
+background-image: url("_imgs/logos.png")
 background-size: 90%, cover
 
 ```{r setup, include=FALSE}
@@ -62,7 +62,7 @@ class: inverse, center, middle
 
 .pull-left[
 ```{r, out.width='95%', fig.align='left', echo=FALSE}
-knitr::include_graphics('../_imgs/ai.jpg')
+knitr::include_graphics('_imgs/ai.jpg')
 
 ```
 
@@ -86,7 +86,7 @@ knitr::include_graphics('../_imgs/ai.jpg')
 ---
 ## Methods & Algorithms
 
-<img src="../_imgs/methods.jpg" width="45%"/>
+<img src="_imgs/methods.jpg" width="45%"/>
 
 .pull-right[
 .footnote[
@@ -106,7 +106,7 @@ class: center, middle, inverse
 .panel[.panel-name[Concept]
 
   .pull-left[
-  <img src="../_imgs/evolution.jpg" width="90%">
+  <img src="_imgs/evolution.jpg" width="90%">
   
   Image credit: [EarthHow](https://earthhow.com/theory-of-evolution/)
   
@@ -130,7 +130,7 @@ class: center, middle, inverse
 .panel[.panel-name[Algorithm]
 
   .pull-left[
-  <img src = "../_imgs/ag-fluxogram.png" width="65%">
+  <img src = "_imgs/ag-fluxogram.png" width="65%">
   
   Image credit: [RPubs](https://rpubs.com/Argaadya/550805)
   
@@ -155,13 +155,13 @@ class: center, middle, inverse
 
 .panel[.panel-name[Elements]
   .pull-left[
-    <img src="../_imgs/ag-elements.png" width="100%">
+    <img src="_imgs/ag-elements.png" width="100%">
   ]
   
   .pull-right[
-  <img src="../_imgs/ag-chromo-bin.png" width="90%">
+  <img src="_imgs/ag-chromo-bin.png" width="90%">
   
-  <img src="../_imgs/ag-chromo-real.png" width="90%">
+  <img src="_imgs/ag-chromo-real.png" width="90%">
   ]
 
 ]
@@ -169,7 +169,7 @@ class: center, middle, inverse
 
 .panel[.panel-name[Operators]
 .pull-left[
-<img src="../_imgs/ag-operators.png" width="100%">
+<img src="_imgs/ag-operators.png" width="100%">
 
 Image credit: [PapersWithCode](https://paperswithcode.com/method/ga#)
 ]
@@ -498,7 +498,7 @@ developed by *Federal Highway Administration* (FHWA), in USA. It is capable to s
 <!-- $$a = \frac{F(V)-R(V)}{m}$$ -->
 
 
-<img src="../_imgs/corsim-truck.png">
+<img src="_imgs/corsim-truck.png">
 ]
 
 .panel[.panel-name[Driver model]
@@ -509,7 +509,7 @@ developed by *Federal Highway Administration* (FHWA), in USA. It is capable to s
 
 - Model:
 
-<img src="../_imgs/corsim-driver.png">
+<img src="_imgs/corsim-driver.png">
 ]
 
 .panel[.panel-name[Result]
@@ -578,12 +578,12 @@ Developed by PTV Group in Karlsruhe, Germany. It is a microscopic multi-modal tr
 
 .panel[.panel-name[Truck model]
 
-<img src="../_imgs/vissim-truck.png" width="70%">
+<img src="_imgs/vissim-truck.png" width="70%">
 ]
 
 .panel[.panel-name[Driver model]
 
-<img src="../_imgs/vissim-driver.png" width="80%">
+<img src="_imgs/vissim-driver.png" width="80%">
 ]
 
 .panel[.panel-name[Publication]
@@ -656,7 +656,7 @@ Image credit: [Yanagisawa](https://www.researchgate.net/publication/330577376_Mo
 
 .pull-right[
 
-<img src="../_imgs/qu.png" width="90%">
+<img src="_imgs/qu.png" width="90%">
 ]
 ]
 ]
