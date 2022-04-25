@@ -1,0 +1,6 @@
+#[Rmarkdown](https://bookdown.org/yihui/rmarkdown/r-code.html#figures)
+#[Xaringan](https://garthtarr.github.io/sydney_xaringan/#14)
+#[Machine Learning](https://vas3k.com/blog/machine_learning/)
+#[Slides example](https://irene.vrbik.ok.ubc.ca/slides/NHSRxaringan.html?panelset1=tab-12#25)
+#[Extra awesome presentation](http://pkg.garrickadenbuie.com/extra-awesome-xaringan/xaringanthemer/index.html#1)
+#[Demo slides](https://www.kirenz.com/slides/xaringan-demo-slides.html#17)

@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Artificial Intelligence to calibrate traffic models</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. PhD. André Luiz Cunha" />
+    <meta name="date" content="2022-04-21" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/jquery/jquery.min.js"></script>
+    <link href="libs/leaflet/leaflet.css" rel="stylesheet" />
+    <script src="libs/leaflet/leaflet.js"></script>
+    <link href="libs/leafletfix/leafletfix.css" rel="stylesheet" />
+    <script src="libs/proj4/proj4.min.js"></script>
+    <script src="libs/Proj4Leaflet/proj4leaflet.js"></script>
+    <link href="libs/rstudio_leaflet/rstudio_leaflet.css" rel="stylesheet" />
+    <script src="libs/leaflet-binding/leaflet.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Artificial Intelligence </br>to calibrate traffic models
+## ERASMUS+ Mobility
+### Prof. PhD. André Luiz Cunha
+### USP | EESC
+### 2022-04-21
+
+---
+
+
+background-image: url("../_imgs/logos.png")
+background-size: 90%, cover
+
+
+
+???
+
+---
+class: inverse, center, middle
+
+# Virtual Mobility
+
+---
+<div id="htmlwidget-a4239143af83a1885df3" style="width:100%;height:504px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a4239143af83a1885df3">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[[45.8158148005203,45.8135414279323,-23.5612494002132,-22.0022226087038,-22.0008],[16.0096457024266,16.0412314672074,-46.730760025132,-47.8986835072589,-47.9297],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["FPZ","FPZ b70","USP-Poli","USP-EESC","USP-EESC-2"],null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-23.5612494002132,45.8158148005203],"lng":[-47.9297,16.0412314672074]}},"evals":[],"jsHooks":[]}</script>
+
+website: [USP](https://www5.usp.br/#english)
+
+
+---
+class: inverse, center, middle
+
+# Get Started
+
+---
+
+## Concepts
+
+.pull-left[
+&lt;img src="../_imgs/ai.jpg" width="95%" style="display: block; margin: auto auto auto 0;" /&gt;
+
+  &lt;!-- ![artificial intelligence](https://i.vas3k.ru/7vw.jpg) --&gt;
+  .footnote[
+  Image credit: [vask3](https://vas3k.com/blog)
+  ]
+]
+
+--
+.pull-right[
+- **|AI| Artificial Intelligence**: &lt;/br&gt;a whole knowledge field
+
+- **|ML| Machine Learning**: &lt;/br&gt;is a part of AI, but not the only one
+
+- **|NN| Neural Networks**: &lt;/br&gt;one of the machine learning types
+
+- **|DP| Deep Learning**: &lt;/br&gt;a modern method of building, training and using NN (a new architecture)
+]
+
+---
+## Methods &amp; Algorithms
+
+&lt;img src="../_imgs/methods.jpg" width="45%"/&gt;
+
+.pull-right[
+.footnote[
+Image credit: [vask3](https://i.vas3k.ru/7vx.jpg)
+]
+]
+
+
+---
+class: center, middle, inverse
+
+# Genetic Algorithm [GA]
+
+---
+## Genetic Algorithm
+.panelset[
+.panel[.panel-name[Concept]
+
+  .pull-left[
+  &lt;img src="../_imgs/evolution.jpg" width="90%"&gt;
+  
+  Image credit: [EarthHow](https://earthhow.com/theory-of-evolution/)
+  
+  ]
+  
+  .pull-right[
+  
+  &gt; GAs are stochastic search algorithms inspired by principles of biological and natural selection.
+  &gt;
+  &gt; .right[--[*John H. Holland* (1984)](https://link.springer.com/chapter/10.1007/978-1-4684-8941-5_21)]
+  
+  &lt;/br&gt;
+  
+  &gt; GAs simulate the evolution of living organisms, where the fittest individuals dominate over the weaker ones, by mimicking the biological mechanisms of evolution, such as selection, crossover and mutation.
+  &gt;
+  &gt; .right[-- [[STRUCCA, 2021](https://cran.r-project.org/web/packages/GA/vignettes/GA.html)]]
+  
+  ]
+]
+
+.panel[.panel-name[Algorithm]
+
+  .pull-left[
+  &lt;img src = "../_imgs/ag-fluxogram.png" width="65%"&gt;
+  
+  Image credit: [RPubs](https://rpubs.com/Argaadya/550805)
+  
+  ]
+
+  .pull-right[
+  
+- Free for any kind of model:
+  
+  $$ y = f(\alpha_n , X_m)$$
+  `$$model = f(parameters, variables)$$`
+  
+  `$$min(Error) = g(model, data)$$`
+- Dataset:
+  
+  &lt;img src = "https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png" width="100%"&gt;
+  
+  Image credit: [R4DS](https://r4ds.had.co.nz/tidy-data.html)
+    
+  ]
+]
+
+.panel[.panel-name[Elements]
+  .pull-left[
+    &lt;img src="../_imgs/ag-elements.png" width="100%"&gt;
+  ]
+  
+  .pull-right[
+  &lt;img src="../_imgs/ag-chromo-bin.png" width="90%"&gt;
+  
+  &lt;img src="../_imgs/ag-chromo-real.png" width="90%"&gt;
+  ]
+
+]
+
+
+.panel[.panel-name[Operators]
+.pull-left[
+&lt;img src="../_imgs/ag-operators.png" width="100%"&gt;
+
+Image credit: [PapersWithCode](https://paperswithcode.com/method/ga#)
+]
+
+
+
+.pull-right[
+
+Parameters to set:
+
+- **Evaluation**: &lt;/br&gt;'fitness function' - rank of the individuals [Hollander &amp; Liu, 2008](https://doi.org/10.1007/s11116-007-9156-2)
+
+- **Selection/Eletism**: &lt;/br&gt;preserve the *n*-th best solutions
+
+- **Crossover**: &lt;/br&gt;mix the solutions
+
+- **Mutation**: &lt;/br&gt;change part of a solution
+
+- **Predation**: &lt;/br&gt;"diversity", eliminate *k* worst solutions and generate new ones randomly
+  
+]
+
+]
+
+]
+
+
+---
+class: center, middle, inverse
+
+# Aplications of GA
+
+---
+## Examples in Transport Engineering
+.panelset[
+.panel[.panel-name[Research Team]
+.pull-left[
+  .pull-left[
+  &lt;img src="https://scholar.googleusercontent.com/citations?view_op=view_photo&amp;user=dhzpfA0AAAAJ&amp;citpid=6"&gt;
+  
+  [**Prof. J.R. Setti**](https://scholar.google.com.br/citations?user=dhzpfA0AAAAJ) &lt;/br&gt;[USP-EESC]
+]
+  .pull-rigth[
+  &lt;img src="https://scholar.googleusercontent.com/citations?view_op=view_photo&amp;user=HI0CQJMAAAAJ&amp;citpid=5"&gt;
+  
+  [**Prof. A.L. Cunha**](https://scholar.google.com.br/citations?user=HI0CQJMAAAAJ) &lt;/br&gt;[USP-EESC]
+]
+
+]
+.pull-right[
+  .pull-left[
+  &lt;img src="https://scholar.googleusercontent.com/citations?view_op=view_photo&amp;user=wWeGz90AAAAJ&amp;citpid=1"&gt;
+  
+  [**Prof. J.E. Bessa Jr.**](https://scholar.google.com.br/citations?user=wWeGz90AAAAJ) &lt;/br&gt;[UFMG]
+  ]
+  
+  .pull-right[
+  &lt;img src="https://scholar.googleusercontent.com/citations?view_op=view_photo&amp;user=C2qGcW8AAAAJ&amp;citpid=1"&gt;
+  
+  [**Gustavo Riente**](https://scholar.google.com.br/citations?user=C2qGcW8AAAAJ) &lt;/br&gt;McTrans Center, UFL
+]
+
+]
+]
+
+.panel[.panel-name[Brazilian road transport]
+.pull-left[
+<div id="htmlwidget-7790d41b4ae68f4c0a44" style="width:100%;height:504px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7790d41b4ae68f4c0a44">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"setView":[[-23.5612494002132,-46.730760025132],4,[]],"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}]},"evals":[],"jsHooks":[]}</script>
+]
+
+.pull-right[
+&lt;img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqWyZtJTfhjQ4HoWIr9g5up7Z5yQNs-QMlHQ&amp;usqp=CAU" width="80%"&gt;
+
+- ~80% of the roads are Two-lane Highways
+
+- ~60% of Brazilian cargo is transported by road
+
+- Need for *Highway Capacity Manual* for Brazil
+]
+]
+]
+
+---
+## Microscopic models calibration
+
+.pull-left[
+
+PREMISSES:
+
+&gt; Microscopic models are essential tools to the Transport engineer, however he/she needs specialized knowledge to specify how well the simulation is reproduced. 
+&gt;
+
+&lt;/br&gt;
+
+&gt; The use of simulation models without proper calibration results in planning and design errors.
+
+]
+
+
+.pull-right[
+MODELS:
+
+**Driver behavior:**
+
+  - Car-following logic
+  
+  - Lane change logic
+
+**Vehicle performance:**
+
+  - Acceleration \ Deceleration
+  
+  - Emergency stop
+
+]
+
+---
+### TRARR (TRAffic on Rural Roads)
+
+.panelset[
+.panel[.panel-name[Details]
+Developed by *Australian Road Research Board* (ARRB), Transport Research Ltd, Australia.
+
+- Simulation time step: 1.0s
+
+- 7 fleet composition
+
+- 18 different vehicles
+
+- 18 driver profiles
+]
+
+.panel[.panel-name[GA]
+
+- coded in Perl
+
+- **25 parameters** calibrated
+
+- Vehicle performance:
+    - used 7 vehicles in 3 classes &lt;/br&gt;(car, unit truck, articulated truck)
+    - Weight
+    - Lenght
+    - Weight/Power ratio
+    
+- Driver behavior:
+    - 7 drivers profile
+    - Free Flow Speed
+    - Speed factor reduction in auxiliary lanes
+
+]
+
+.panel[.panel-name[Result]
+
+- Error drops from 9% to 6% using calibrated parameters
+
+- Method to estimate traffic parameters from video camera (manually).
+
+]
+
+.panel[.panel-name[Publication]
+- Egami, C.Y. [2000] ([Master](https://teses.usp.br/teses/disponiveis/18/18137/tde-30012018-110548/en.php))
+
+- Egami, C.Y. [2006] ([PhD thesis](https://teses.usp.br/teses/disponiveis/18/18137/tde-10022011-105402/en.php)) 
+]
+]
+
+
+---
+### TWOPAS (TWO-lane with PASsing)
+
+.panelset[
+
+.panel[.panel-name[Details]
+developed by *Midwest Research Institute* (MRI), *Federal Highway Administration* (FHWA), in USA.
+
+- Simulation time step: 1.0s
+
+- 13 different vehicles
+
+- 10 driver profiles
+
+]
+
+
+.panel[.panel-name[GA]
+
+- coded in Perl and Lua
+
+- **35 parameters** calibrated
+
+- Vehicle performance:
+    - used 4 vehicles 
+    - Weight/Power ratio
+    
+- Driver behavior:
+    - 10 drivers profile
+    - Free Flow Speed
+    - Probability distribution of overtaking
+    - Car-following factor
+]
+
+.panel[.panel-name[Result]
+- Error drops from 9.5% to 6% using calibrated parameters
+
+- Method to estimate traffic parameters from video camera (manually/automatic).
+]
+
+.panel[.panel-name[Publication]
+
+- [2006] [Automatic Calibration of Two-Lane Highway Traffic Simulation Models Using Genetic Algorithm](https://ascelibrary.org/doi/abs/10.1061/40799%28213%2981).
+
+- [2008] Mon-Ma, M.L. (PhD thesis)
+
+- [2011] [Derivation of ATS and PTS function for Two-lane, Rural Highways in Brazil](https://www.sciencedirect.com/science/article/pii/S1877042811009967?via%3Dihub).
+]
+]
+
+
+---
+###INTEGRATION Dynamic Traffic Assignment and Simulation Software
+
+.panelset[
+.panel[.panel-name[Details]
+developed by **Michael Van Aerde** and **Dr. Hesham Rakha**, at *Virginia Tech Transportation Institute* (VTTI), in USA. Simulate any type of highway (two-lane, multilane and freeway).
+
+- Simulation time step: 0.1s
+
+- 7 different vehicles
+
+- 10 driver profiles
+
+- Small version is available for download:&lt;/br&gt;
+[https://sites.google.com/a/vt.edu/hrakha/software](https://sites.google.com/a/vt.edu/hrakha/software)
+]
+
+.panel[.panel-name[GA]
+- Coded in VBA-Excel and Lua
+
+- **8 parameters** calibrated
+
+- Vehicle performance:
+    - 4 different vehicles 
+    - Weight/Power ratio
+    
+- Fitness function:
+    - MAER (Mean Absolute Error)
+
+]
+
+.panel[.panel-name[Truck model]
+- Collect data:
+
+    - GPS position of trucks at 10Hz (0.1s) travelling 10km on road
+    - 62 trucks (5 light, 13 medium, 22 heavy, and 22 extra-heavy)
+
+- Model:
+
+$$F = m \cdot a $$
+`$$F_t = min(\eta \cdot 3600 \cdot \frac{P}{V}; W_{ta} \cdot \mu)$$`
+`$$R_t = R_a + R_r + R_g$$`
+`$$R_a = c_1 \cdot C_D \cdot C_h \cdot A \cdot V^2$$`
+`$$R_r = C_r \cdot (c_2 \cdot V + c_3) \cdot \frac{W}{1000}$$`
+`$$R_g = W \cdot i$$`
+]
+
+.panel[.panel-name[Result]
+- The GA was able to find parameters to represent the average performance of four different trucks
+
+- The MAER for truck classes ranged from 4.0% to 6.5%
+
+- The MAER for individual trucks was 2.2%
+]
+
+]
+
+---
+### TSIS-CORSIM (CORridor traffic SIMulation model)
+.panelset[
+.panel[.panel-name[Details]
+developed by *Federal Highway Administration* (FHWA), in USA. It is capable to simulate freeways, two-lane highways, street in an integrated system.
+
+- Simulation time step: 1.0s
+
+- 7 different vehicles
+
+- 10 driver profiles
+
+]
+
+.panel[.panel-name[GA]
+- **31 parameters** in TSIS-CORSIM 
+
+- **Models were calibrated separately**
+
+- Vehicle performance:
+    - 4 different vehicles 
+    - Weight/Power ratio
+    
+- Driver behavior:
+    - 10 drivers profile
+    - Car-following logic
+    - Lane-changing logic
+    
+- Fitness function:
+    - MAER (Mean Absolute Error)
+]
+
+.panel[.panel-name[Truck model]
+
+- Collect data:
+
+    - GPS position of trucks at 10Hz (0.1s) travelling 10km on road
+    - 62 trucks (5 light, 13 medium, 22 heavy, and 22 extra-heavy)
+
+- Model:
+
+&lt;!-- `$$a = \frac{F(V)-R(V)}{m}$$` --&gt;
+
+
+&lt;img src="../_imgs/corsim-truck.png"&gt;
+]
+
+.panel[.panel-name[Driver model]
+- Collect data:
+
+    - Speed and Flow data on a 10km of multilane highway
+    - Speed and Flow data on 16 segments of two-lane highways
+
+- Model:
+
+&lt;img src="../_imgs/corsim-driver.png"&gt;
+]
+
+.panel[.panel-name[Result]
+- The AG was able to calibrate parameter to four different trucks and 10 different drivers profile.
+
+- The MAER for truck classes ranged from 4.5% to 7.5%
+
+- The MAER for individual trucks was 2.2%
+
+- The error ratio dropped by almost 50% using the parameter calibrated for driver behaviour
+
+- The method reveals how to estimate percentage time spent following (PTSF) with a calibrated model
+]
+
+.panel[.panel-name[Publication]
+- [2007] Araújo, J.J. ([PhD thesis](https://teses.usp.br/teses/disponiveis/18/18137/tde-06112007-172037/en.php))
+
+- [2007] Cunha, A.L. ([Master's](https://teses.usp.br/teses/disponiveis/18/18144/tde-27112007-094400/en.php))
+
+- [2009] [Genetic Algorithm for the calibration of
+vehicle performance models of microscopic traffic simulators.](https://link.springer.com/chapter/10.1007/978-3-642-04686-5_1)
+
+- [2011] [Truck equivalence factors for divided, multilane highways in Brazil](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.1070.4360&amp;rep=rep1&amp;type=pdf).
+
+- [2017] [Evaluation of Models to Estimate Percent Time Spent Following on Two-Lane Highways](https://ascelibrary.org/doi/10.1061/JTEPBS.0000032).
+
+]
+]
+
+
+
+---
+### VISSIM Traffic Simulation Software
+
+.panelset[
+
+.panel[.panel-name[Details]
+Developed by PTV Group in Karlsruhe, Germany. It is a microscopic multi-modal traffic flow simulation package.
+
+- Simulation time step: 0.1s
+
+- unlimited vehicles
+
+- 10 driver profiles
+
+]
+
+.panel[.panel-name[GA]
+- Coded in Python
+
+- **30 parameters ** for each truck class
+- **10 parameters ** for each driver profile
+
+- Vehicle performance
+    - used 4 truck classes
+    - distribution of acceleration, power and weight
+
+- Driver behavior
+    - 10 drivers profile
+    - Car-following logic
+    - Lane-changing logic
+    
+- Fitness function
+    - MAER (Mean Absolute Error)
+]
+
+.panel[.panel-name[Truck model]
+
+&lt;img src="../_imgs/vissim-truck.png" width="70%"&gt;
+]
+
+.panel[.panel-name[Driver model]
+
+&lt;img src="../_imgs/vissim-driver.png" width="80%"&gt;
+]
+
+.panel[.panel-name[Publication]
+- [2016] [Calibration of microscopic traffic simulators using macroscopic measures](https://teses.usp.br/teses/disponiveis/18/18144/tde-18072016-135825/en.php)
+
+- [2018] [Calibration of Vissim's truck acceleration model](https://teses.usp.br/teses/disponiveis/18/18144/tde-18022019-112511/en.php)
+]
+]
+
+
+
+---
+class: center, middle, inverse
+
+# Principal Component Analysis (PCA)
+
+
+---
+## Principal Component Analysis
+.panelset[
+
+.panel[.panel-name[Concept]
+- Reducing dimensionality of data
+
+- Preserve as much as possible the information contained in original data
+
+- Emphasizes variation and highlights patterns in dataset
+
+&lt;img src="https://www.analyticsvidhya.com/wp-content/uploads/2016/07/PCA.jpg" width="30%"&gt;
+]
+
+.panel[.panel-name[Application]
+- [2016] [A Model for Estimating Free-Flow Speed on Brazilian Expressways](https://www.sciencedirect.com/science/article/pii/S2352146516305610)
+
+- Models for estimation of FFS
+    - HCM: `$$FFS = BFFS - f_1 - f_2 - ... - f_n$$`
+    - HDM-4: `$$FFS = f(V_{drive}, V_{brake}, V_{curve})$$`
+    - Proposed: `$$FFS = f(PostSpeed, NumLanes, HwyType, AdjLandUse, HorzAlign, AccessDen)$$`
+]
+]
+
+
+---
+class: center, middle, inverse
+
+# Bayesian Inference
+
+
+---
+## Bayesian Inference
+
+.panelset[
+
+.panel[.panel-name[Concept]
+- Specify how one should update one's belief upon observing data
+
+- A method of statistical inference used to update the probability for a hypothesis as more evidence or information become available.
+
+&lt;img src="https://www.researchgate.net/profile/Hideyoshi-Yanagisawa/publication/330577376/figure/fig1/AS:718458304086017@1548305216392/Example-of-Bayesian-inference-with-a-prior-distribution-a-posterior-distribution-and.png" width="70%"&gt;
+
+Image credit: [Yanagisawa](https://www.researchgate.net/publication/330577376_Modeling_Emotions_Associated_With_Novelty_at_Variable_Uncertainty_Levels_A_Bayesian_Approach)
+]
+
+.panel[.panel-name[Application]
+- [2019] [A calibration method structured on Bayesian Inference of the HCM speed-flow relationship for freeways and multilane highways and a temporal analysis of traffic behavior](https://arxiv.org/pdf/1908.10852.pdf)
+
+.pull-left[
+- HCM Speed-flow model: `$$u = u_f - ((u_f - \frac{q_c}{k_c}) \cdot (\frac{q - bp}{q_c - bp})^\alpha) \cdot (q \geq bp)$$`
+]
+
+.pull-right[
+
+&lt;img src="../_imgs/qu.png" width="90%"&gt;
+]
+]
+]
+
+---
+class: center, middle, inverse
+
+# Thanks!
+
+&lt;alcunha@usp.br&gt;
+
+[https://github.com/albnc](https://github.com/albnc)
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
