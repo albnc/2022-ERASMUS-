@@ -14,7 +14,7 @@ output:
       ratio: "16:9"
 ---
 
-background-image: url("_imgs/logos.png")
+background-image: url("./_imgs/logos.png")
 background-size: 90%, cover
 
 ```{r setup, include=FALSE}
